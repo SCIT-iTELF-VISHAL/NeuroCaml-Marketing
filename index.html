@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCalm - Your Personal Relaxation Device</title>
+    <!-- Favicon -->
+    <!-- Note: Link this to your local logo file -->
+    <link rel="icon" href="webicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* A very light grey for a soft background */
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a192f 0%, #172a46 100%);
+        }
+        .secondary-gradient-bg {
+            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .pulse-shadow {
+            box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(56, 189, 248, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Your Logo -->
+            <a href="#" class="flex items-center space-x-2">
+                <img src="logo.png" alt="NeuroCalm Logo" class="h-[4.5rem] w-auto">
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#features" class="text-gray-600 hover:text-sky-500 transition duration-300">Features</a>
+                <a href="#app-control" class="text-gray-600 hover:text-sky-500 transition duration-300">App</a>
+                <a href="#gallery" class="text-gray-600 hover:text-sky-500 transition duration-300">Gallery</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-sky-500 transition duration-300">Testimonials</a>
+            </nav>
+            <a href="#pricing" class="hidden md:inline-block secondary-gradient-bg text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:shadow-lg hover:opacity-90 transition-all duration-300">
+                Buy Now
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="container mx-auto px-6 py-16 md:py-24">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-center md:text-left">
+                <span class="text-sky-500 font-semibold text-lg">Say Goodbye to Tension</span>
+                <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mt-2 mb-6 leading-tight">
+                    Find Your Focus. Reclaim Your Calm.
+                </h2>
+                <p class="text-lg text-gray-600 mb-8 max-w-lg mx-auto md:mx-0">
+                    NeuroCalm is a revolutionary smart relief band that syncs with you to provide the ultimate comfort experience, helping you melt away stress and find your center.
+                </p>
+                <div class="flex justify-center md:justify-start items-center space-x-4">
+                    <a href="#pricing" class="secondary-gradient-bg text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:opacity-90 transition-all duration-300 transform hover:scale-105 pulse-shadow">
+                        Order Yours Now
+                    </a>
+                    <a href="#features" class="text-gray-600 font-semibold hover:text-sky-500 transition duration-300">
+                        Learn More &rarr;
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="absolute inset-0 bg-sky-200 rounded-full blur-3xl opacity-30"></div>
+                <!-- Main product image -->
+                <img src="BlackPro.png" alt="NeuroCalm Product in Black" class="relative z-10 w-full max-w-md mx-auto rounded-lg transform hover:scale-105 transition-transform duration-500">
+            </div>
+        </div>
+    </main>
+
+    <!-- Features Section -->
+    <section id="features" class="bg-white py-20 md:py-28">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-sky-500 font-semibold">FEATURES</span>
+                <h3 class="text-3xl md:text-4xl font-bold mt-2">Everything You Need for Total Relaxation</h3>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Our smart relief band is packed with features designed for your ultimate comfort and control.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-gray-50 p-8 rounded-2xl shadow-sm transition-all duration-300 text-center">
+                    <div class="inline-block p-4 bg-sky-100 rounded-full mb-4">
+                        <i data-lucide="target" class="text-sky-600"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Targeted Relief</h4>
+                    <p class="text-gray-600">Focuses on key pressure points to effectively alleviate tension.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card bg-gray-50 p-8 rounded-2xl shadow-sm transition-all duration-300 text-center">
+                    <div class="inline-block p-4 bg-sky-100 rounded-full mb-4">
+                        <i data-lucide="timer" class="text-sky-600"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Adjustable Timer & Intensity</h4>
+                    <p class="text-gray-600">Customize your session duration and strength for a personalized experience.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card bg-gray-50 p-8 rounded-2xl shadow-sm transition-all duration-300 text-center">
+                    <div class="inline-block p-4 bg-sky-100 rounded-full mb-4">
+                       <i data-lucide="music" class="text-sky-600"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Soothing Sound</h4>
+                    <p class="text-gray-600">Integrated calming audio to enhance your relaxation journey.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card bg-gray-50 p-8 rounded-2xl shadow-sm transition-all duration-300 text-center">
+                    <div class="inline-block p-4 bg-sky-100 rounded-full mb-4">
+                        <i data-lucide="smartphone" class="text-sky-600"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Smart App Control</h4>
+                    <p class="text-gray-600">Easily manage all settings from our intuitive mobile application.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Control Section -->
+    <section id="app-control" class="py-20 md:py-28">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center order-2 md:order-1">
+                    <span class="text-sky-500 font-semibold">SMART CONTROL</span>
+                    <h3 class="text-3xl md:text-4xl font-bold mt-2 mb-6">The NeuroCalm App</h3>
+                    <p class="text-lg text-gray-600 mb-8 max-w-md mx-auto">
+                        Take full control of your relaxation with our intuitive mobile app. Customize intensity, set timers, and explore guided sessions. Available for both iOS and Android.
+                    </p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-700 transition-colors">
+                            <i data-lucide="apple" class="h-6 w-6"></i>
+                            <div>
+                                <p class="text-xs">Download on the</p>
+                                <p class="text-lg font-semibold -mt-1">App Store</p>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-700 transition-colors">
+                           <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.94 11.03l-4.5-4.5c-.39-.39-1.02-.39-1.41 0L3.39 17.97c-.39.39-.39 1.02 0 1.41l4.5 4.5c.39.39 1.02.39 1.41 0l11.64-11.64c.39-.39.39-1.02 0-1.41zM5.12 18.29L12 11.41l1.29 1.29-6.88 6.88-1.29-1.29zM15.41 14l-1.29-1.29 6.88-6.88 1.29 1.29L15.41 14z"/></svg>
+                            <div>
+                                <p class="text-xs">GET IT ON</p>
+                                <p class="text-lg font-semibold -mt-1">Google Play</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center order-1 md:order-2">
+                     <!-- App image -->
+                    <img src="app.png" alt="NeuroCalm App Interface" class="max-w-xs mx-auto rounded-[36px] shadow-2xl transform hover:scale-105 transition-transform duration-500 ring-4 ring-gray-200">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section id="gallery" class="bg-white py-20 md:py-28">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                 <span class="text-sky-500 font-semibold">GALLERY</span>
+                <h3 class="text-3xl md:text-4xl font-bold mt-2">Sleek Design, Premium Comfort</h3>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Available in multiple colors to match your style.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-lg">
+                     <!-- Black product image -->
+                    <img src="BlackPro.png" alt="NeuroCalm Black Version" class="w-full h-auto rounded-lg">
+                </div>
+                <div class="bg-gray-50 p-8 rounded-2xl shadow-lg">
+                    <!-- Blue product image -->
+                    <img src="BluePro.png" alt="NeuroCalm Blue Version" class="w-full h-auto rounded-lg">
+                </div>
+                 <!-- You can add more images here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="bg-gray-50 py-20 md:py-28">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-sky-500 font-semibold">TESTIMONIALS</span>
+                <h3 class="text-3xl md:text-4xl font-bold mt-2">Loved by People Worldwide</h3>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Don't just take our word for it. Here's what our users are saying.</p>
+            </div>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm">
+                    <p class="text-gray-600 mb-6">"NeuroCalm has been a game-changer for my daily routine. I feel more focused and less stressed after just a few minutes of use. Highly recommended!"</p>
+                    <div class="flex items-center">
+                        <img src="person1.png" alt="User Avatar" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-bold">Sarah M.</p>
+                            <p class="text-sm text-gray-500">Software Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm">
+                    <p class="text-gray-600 mb-6">"I was skeptical at first, but the relief is real. The cushioned strap is incredibly comfortable, and the app is so easy to use. It's my new go-to for relaxation."</p>
+                    <div class="flex items-center">
+                        <img src="person2.png" alt="User Avatar" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-bold">John D.</p>
+                            <p class="text-sm text-gray-500">Graphic Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm">
+                    <p class="text-gray-600 mb-6">"The perfect way to unwind after a long day. I love the soothing sounds feature. It helps me disconnect and find my calm. Worth every penny!"</p>
+                    <div class="flex items-center">
+                        <img src="person1.png" alt="User Avatar" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-bold">Anna K.</p>
+                            <p class="text-sm text-gray-500">Yoga Instructor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 md:py-28">
+         <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto gradient-bg text-white rounded-3xl p-8 md:p-16 text-center shadow-2xl">
+                <span class="text-sky-300 font-semibold">LIMITED TIME OFFER</span>
+                <h3 class="text-3xl md:text-5xl font-extrabold mt-4 mb-4">Get Your NeuroCalm Today!</h3>
+                <p class="text-lg text-sky-100 mb-8">Early birds get an exclusive <span class="font-bold">15% OFF!</span> Don't miss out on the ultimate relaxation experience.</p>
+                <div class="bg-white text-gray-900 rounded-xl p-6 inline-block mb-8 shadow-inner">
+                    <span class="text-4xl md:text-5xl font-bold">₹3999</span>
+                    <span class="text-gray-500 text-lg">/ one-time</span>
+                </div>
+                <button onclick="void(0);" class="w-full max-w-sm secondary-gradient-bg text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:opacity-90 transition-all duration-300 transform hover:scale-105">
+                    Buy Now
+                </button>
+                <p class="text-xs text-sky-200 mt-4">30-Day Money-Back Guarantee</p>
+            </div>
+         </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 border-t border-gray-200">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                 <!-- Your Logo -->
+                <a href="#" class="flex items-center space-x-2">
+                    <img src="logo.png" alt="NeuroCalm Logo" class="h-[3.6rem] w-auto">
+                </a>
+                <p class="text-gray-600 text-sm">&copy; 2024 NeuroCalm. All Rights Reserved.</p>
+                <div class="flex space-x-4">
+                    <!-- Replace with your actual social media links -->
+                    <a href="#" class="text-gray-500 hover:text-sky-500">
+                        <i data-lucide="instagram"></i>
+                    </a>
+                     <a href="#" class="text-gray-500 hover:text-sky-500">
+                        <i data-lucide="facebook"></i>
+                    </a>
+                     <a href="#" class="text-gray-500 hover:text-sky-500">
+                        <i data-lucide="twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>
+
