@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeuroCalm - Your Personal Relaxation Device</title>
     <!-- Favicon -->
-    <!-- Note: Link this to your local logo file -->
     <link rel="icon" href="webicon.png">
+    <!-- Corrected Tailwind CSS Link -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F8FAFC; /* A very light grey for a soft background */
+            /* Updated Baby Blue to White Gradient Background */
+            background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
         .gradient-bg {
             background: linear-gradient(135deg, #0a192f 0%, #172a46 100%);
@@ -30,27 +32,178 @@
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
-            }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 10px rgba(56, 189, 248, 0);
-            }
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
-            }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+
+        /* --- Liquid Wipe Loader --- */
+        #loader {
+            transition: opacity 0.5s ease-out 1s, visibility 0.5s ease-out 1s;
+        }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #liquid-wipe-effect {
+            width: 1px;
+            height: 1px;
+            background: #FFFFFF; /* Match final gradient color */
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 1s cubic-bezier(0.83, 0, 0.17, 1);
+        }
+        #loader.is-loading #liquid-wipe-effect {
+            transform: scale(3000);
+        }
+        .loader-content {
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+        #loader.is-loading .loader-content {
+            opacity: 0;
+        }
+
+        /* Gooey Liquid Animation */
+        .dots-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150px;
+            height: 150px;
+            margin-top: -75px;
+            margin-left: -75px;
+            filter: url(#goo);
+            animation: rotate 4s linear infinite;
+        }
+        .dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            margin-top: -25px;
+            margin-left: -25px;
+            background: #FFFFFF; 
+            border-radius: 50%;
+        }
+        .dot-1 { transform: rotate(0deg) translate(50px) rotate(0deg); }
+        .dot-2 { transform: rotate(120deg) translate(50px) rotate(-120deg); }
+        .dot-3 { transform: rotate(240deg) translate(50px) rotate(-240deg); }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Power Fluctuation Animation */
+        .power-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border-radius: 9999px;
+            background: radial-gradient(circle, rgba(56,189,248,0.3) 0%, rgba(56,189,248,0) 65%);
+            animation: power-fluctuation 3.5s infinite ease-in-out;
+            pointer-events: none;
+        }
+        @keyframes power-fluctuation {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+        }
+
+        /* Page Scroll Transition Animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* --- NEW Gallery Styles (Responsive) --- */
+        .product-card .color-plate {
+            transition: background-color 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        .product-card .info .product-name, .product-card .info .price-tag {
+            position: relative;
+            opacity: 1;
+            top: 0;
+            transition: top 0.7s, opacity 0.7s;
+        }
+        .product-card .info .product-name.hidden, .product-card .info .price-tag.hidden {
+            top: 50px;
+            opacity: 0;
+            position: absolute;
+        }
+        .product-card .product-image {
+            transition: opacity 0.7s, transform 0.7s;
+        }
+        /* Fixed color options */
+        .product-card .info .color-options ul li {
+            height: 25px;
+            width: 25px;
+            margin-right: 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .product-card .info .color-options ul li.active {
+            border-color: #000;
+            transform: scale(1.2);
+        }
+        .product-card .info .color-options ul li:nth-child(1) { background: #333; }
+        .product-card .info .color-options ul li:nth-child(2) { background: #87CEEB; }
+
+        .product-card.active-black .color-plate {
+            background-color: #333;
+        }
+        .product-card.active-blue .color-plate {
+            background-color: #87CEEB;
+        }
+
+        .product-card .product-image {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+        .product-card .product-image.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
     </style>
 </head>
 <body class="text-gray-800">
 
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center gradient-bg">
+        <div id="liquid-wipe-effect" class="absolute"></div>
+        <div class="loader-content relative flex items-center justify-center">
+            <div class="dots-wrapper">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-2"></div>
+                <div class="dot dot-3"></div>
+            </div>
+            <img src="logo.png" alt="NeuroCalm Logo" class="relative z-10 h-16 w-auto">
+        </div>
+    </div>
+    <!-- SVG filter for the gooey effect, must be in the body -->
+    <svg style="position: absolute; width: 0; height: 0;">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -9" result="goo" />
+          <feBlend in="SourceGraphic" in2="goo" />
+        </filter>
+      </defs>
+    </svg>
+
+
     <!-- Header -->
-    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm relative">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Your Logo -->
             <a href="#" class="flex items-center space-x-2">
                 <img src="logo.png" alt="NeuroCalm Logo" class="h-[4.5rem] w-auto">
             </a>
@@ -63,22 +216,38 @@
             <a href="#pricing" class="hidden md:inline-block secondary-gradient-bg text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:shadow-lg hover:opacity-90 transition-all duration-300">
                 Buy Now
             </a>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-800 hover:text-sky-500 focus:outline-none" aria-expanded="false">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg shadow-lg absolute top-full left-0 w-full">
+            <div class="flex flex-col items-center space-y-4 py-8">
+                <a href="#features" class="text-gray-800 hover:text-sky-500 text-lg">Features</a>
+                <a href="#app-control" class="text-gray-800 hover:text-sky-500 text-lg">App</a>
+                <a href="#gallery" class="text-gray-800 hover:text-sky-500 text-lg">Gallery</a>
+                <a href="#testimonials" class="text-gray-800 hover:text-sky-500 text-lg">Testimonials</a>
+                <a href="#pricing" class="mt-4 secondary-gradient-bg text-white font-semibold px-6 py-2 rounded-lg">
+                    Buy Now
+                </a>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <main class="container mx-auto px-6 py-16 md:py-24">
+    <main class="container mx-auto px-6 py-16 md:py-24 fade-in-section">
         <div class="grid md:grid-cols-2 gap-12 items-center">
             <div class="text-center md:text-left">
                 <span class="text-sky-500 font-semibold text-lg">Say Goodbye to Tension</span>
-                <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mt-2 mb-6 leading-tight">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 mt-2 mb-6 leading-tight">
                     Find Your Focus. Reclaim Your Calm.
                 </h2>
                 <p class="text-lg text-gray-600 mb-8 max-w-lg mx-auto md:mx-0">
                     NeuroCalm is a revolutionary smart relief band that syncs with you to provide the ultimate comfort experience, helping you melt away stress and find your center.
                 </p>
-                <div class="flex justify-center md:justify-start items-center space-x-4">
-                    <a href="#pricing" class="secondary-gradient-bg text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:opacity-90 transition-all duration-300 transform hover:scale-105 pulse-shadow">
+                <div class="flex flex-col sm:flex-row justify-center md:justify-start items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#pricing" class="w-full sm:w-auto secondary-gradient-bg text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:opacity-90 transition-all duration-300 transform hover:scale-105 pulse-shadow text-center">
                         Order Yours Now
                     </a>
                     <a href="#features" class="text-gray-600 font-semibold hover:text-sky-500 transition duration-300">
@@ -86,16 +255,16 @@
                     </a>
                 </div>
             </div>
-            <div class="relative">
+            <div class="relative mt-12 md:mt-0">
+                <div class="power-pulse"></div>
                 <div class="absolute inset-0 bg-sky-200 rounded-full blur-3xl opacity-30"></div>
-                <!-- Main product image -->
                 <img src="BlackPro.png" alt="NeuroCalm Product in Black" class="relative z-10 w-full max-w-md mx-auto rounded-lg transform hover:scale-105 transition-transform duration-500">
             </div>
         </div>
     </main>
 
     <!-- Features Section -->
-    <section id="features" class="bg-white py-20 md:py-28">
+    <section id="features" class="bg-white/50 py-20 md:py-28 fade-in-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-sky-500 font-semibold">FEATURES</span>
@@ -103,7 +272,6 @@
                 <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Our smart relief band is packed with features designed for your ultimate comfort and control.</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Feature 1 -->
                 <div class="feature-card bg-gray-50 p-8 rounded-2xl shadow-sm transition-all duration-300 text-center">
                     <div class="inline-block p-4 bg-sky-100 rounded-full mb-4">
                         <i data-lucide="target" class="text-sky-600"></i>
@@ -111,7 +279,6 @@
                     <h4 class="text-xl font-bold mb-2">Targeted Relief</h4>
                     <p class="text-gray-600">Focuses on key pressure points to effectively alleviate tension.</p>
                 </div>
-                <!-- Feature 2 -->
                 <div class="feature-card bg-gray-50 p-8 rounded-2xl shadow-sm transition-all duration-300 text-center">
                     <div class="inline-block p-4 bg-sky-100 rounded-full mb-4">
                         <i data-lucide="timer" class="text-sky-600"></i>
@@ -119,7 +286,6 @@
                     <h4 class="text-xl font-bold mb-2">Adjustable Timer & Intensity</h4>
                     <p class="text-gray-600">Customize your session duration and strength for a personalized experience.</p>
                 </div>
-                <!-- Feature 3 -->
                 <div class="feature-card bg-gray-50 p-8 rounded-2xl shadow-sm transition-all duration-300 text-center">
                     <div class="inline-block p-4 bg-sky-100 rounded-full mb-4">
                        <i data-lucide="music" class="text-sky-600"></i>
@@ -127,7 +293,6 @@
                     <h4 class="text-xl font-bold mb-2">Soothing Sound</h4>
                     <p class="text-gray-600">Integrated calming audio to enhance your relaxation journey.</p>
                 </div>
-                <!-- Feature 4 -->
                 <div class="feature-card bg-gray-50 p-8 rounded-2xl shadow-sm transition-all duration-300 text-center">
                     <div class="inline-block p-4 bg-sky-100 rounded-full mb-4">
                         <i data-lucide="smartphone" class="text-sky-600"></i>
@@ -140,7 +305,7 @@
     </section>
 
     <!-- App Control Section -->
-    <section id="app-control" class="py-20 md:py-28">
+    <section id="app-control" class="py-20 md:py-28 fade-in-section">
         <div class="container mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="text-center order-2 md:order-1">
@@ -149,15 +314,15 @@
                     <p class="text-lg text-gray-600 mb-8 max-w-md mx-auto">
                         Take full control of your relaxation with our intuitive mobile app. Customize intensity, set timers, and explore guided sessions. Available for both iOS and Android.
                     </p>
-                    <div class="flex justify-center space-x-4">
-                        <a href="#" class="bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-700 transition-colors">
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                        <a href="#" class="bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-700 transition-colors w-full sm:w-auto justify-center">
                             <i data-lucide="apple" class="h-6 w-6"></i>
                             <div>
                                 <p class="text-xs">Download on the</p>
                                 <p class="text-lg font-semibold -mt-1">App Store</p>
                             </div>
                         </a>
-                        <a href="#" class="bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-700 transition-colors">
+                        <a href="#" class="bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-700 transition-colors w-full sm:w-auto justify-center">
                            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.94 11.03l-4.5-4.5c-.39-.39-1.02-.39-1.41 0L3.39 17.97c-.39.39-.39 1.02 0 1.41l4.5 4.5c.39.39 1.02.39 1.41 0l11.64-11.64c.39-.39.39-1.02 0-1.41zM5.12 18.29L12 11.41l1.29 1.29-6.88 6.88-1.29-1.29zM15.41 14l-1.29-1.29 6.88-6.88 1.29 1.29L15.41 14z"/></svg>
                             <div>
                                 <p class="text-xs">GET IT ON</p>
@@ -167,7 +332,6 @@
                     </div>
                 </div>
                 <div class="text-center order-1 md:order-2">
-                     <!-- App image -->
                     <img src="app.png" alt="NeuroCalm App Interface" class="max-w-xs mx-auto rounded-[36px] shadow-2xl transform hover:scale-105 transition-transform duration-500 ring-4 ring-gray-200">
                 </div>
             </div>
@@ -175,29 +339,53 @@
     </section>
     
     <!-- Gallery Section -->
-    <section id="gallery" class="bg-white py-20 md:py-28">
+    <section id="gallery" class="bg-white/50 py-20 md:py-28 fade-in-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                 <span class="text-sky-500 font-semibold">GALLERY</span>
+                <span class="text-sky-500 font-semibold">GALLERY</span>
                 <h3 class="text-3xl md:text-4xl font-bold mt-2">Sleek Design, Premium Comfort</h3>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Available in multiple colors to match your style.</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Available in two stunning colors.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="bg-gray-50 p-8 rounded-2xl shadow-lg">
-                     <!-- Black product image -->
-                    <img src="BlackPro.png" alt="NeuroCalm Black Version" class="w-full h-auto rounded-lg">
+            <!-- Responsive Gallery Implementation -->
+            <div class="flex justify-center items-center">
+                <div class="product-card active-black flex flex-col md:flex-row w-full max-w-sm md:max-w-4xl h-auto md:h-[550px] rounded-2xl bg-white shadow-xl overflow-hidden">
+                    <!-- Info Section -->
+                    <div class="info w-full md:w-[45%] p-6 md:p-10 order-2 md:order-1 flex flex-col justify-center">
+                        <div class="product-name-wrapper h-16 md:h-24 relative">
+                            <h1 class="product-name text-3xl font-bold absolute" data-color="black">Onyx Black</h1>
+                            <h1 class="product-name text-3xl font-bold absolute hidden" data-color="blue">Sky Blue</h1>
+                        </div>
+                        <p class="description text-gray-600">
+                            Experience unparalleled relaxation with the NeuroCalm band. Ergonomically designed for comfort and crafted with premium materials for a sleek, modern look.
+                        </p>
+                        <div class="color-options mt-6 md:mt-8">
+                            <h3 class="text-base md:text-lg font-semibold text-gray-700">Choose your color:</h3>
+                            <ul class="mt-3 flex items-center">
+                                <li class="active" data-color="black"></li>
+                                <li data-color="blue"></li>
+                            </ul>
+                        </div>
+                        <div class="price mt-6 md:mt-10">
+                            <div class="price-tag-wrapper h-10 md:h-12 relative">
+                                <span class="price-tag text-3xl font-bold absolute" data-color="black">₹3999</span>
+                                <span class="price-tag text-3xl font-bold absolute hidden" data-color="blue">₹3999</span>
+                            </div>
+                            <button class="mt-4 bg-gray-800 text-white w-full md:w-auto px-8 py-3 rounded-lg hover:bg-black transition-colors duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Image Section -->
+                    <div class="relative w-full md:w-[55%] h-80 md:h-full order-1 md:order-2">
+                        <div class="color-plate absolute inset-0"></div>
+                        <img src="BlackPro.png" alt="NeuroCalm Black" class="product-image absolute top-1/2 left-1/2 w-full max-w-xs sm:max-w-sm md:max-w-md" data-color="black">
+                        <img src="BluePro.png" alt="NeuroCalm Blue" class="product-image absolute top-1/2 left-1/2 w-full max-w-xs sm:max-w-sm md:max-w-md" data-color="blue">
+                    </div>
                 </div>
-                <div class="bg-gray-50 p-8 rounded-2xl shadow-lg">
-                    <!-- Blue product image -->
-                    <img src="BluePro.png" alt="NeuroCalm Blue Version" class="w-full h-auto rounded-lg">
-                </div>
-                 <!-- You can add more images here -->
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="bg-gray-50 py-20 md:py-28">
+    <section id="testimonials" class="py-20 md:py-28 fade-in-section">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="text-sky-500 font-semibold">TESTIMONIALS</span>
@@ -205,18 +393,16 @@
                 <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Don't just take our word for it. Here's what our users are saying.</p>
             </div>
             <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm">
                     <p class="text-gray-600 mb-6">"NeuroCalm has been a game-changer for my daily routine. I feel more focused and less stressed after just a few minutes of use. Highly recommended!"</p>
                     <div class="flex items-center">
                         <img src="person1.png" alt="User Avatar" class="w-12 h-12 rounded-full mr-4">
                         <div>
-                            <p class="font-bold">Geera man</p>
+                            <p class="font-bold">Geera Ramaswamy</p>
                             <p class="text-sm text-gray-500">Chef</p>
                         </div>
                     </div>
                 </div>
-                <!-- Testimonial 2 -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm">
                     <p class="text-gray-600 mb-6">"I was skeptical at first, but the relief is real. The cushioned strap is incredibly comfortable, and the app is so easy to use. It's my new go-to for relaxation."</p>
                     <div class="flex items-center">
@@ -227,14 +413,13 @@
                         </div>
                     </div>
                 </div>
-                <!-- Testimonial 3 -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm">
                     <p class="text-gray-600 mb-6">"The perfect way to unwind after a long day. I love the soothing sounds feature. It helps me disconnect and find my calm. Worth every penny!"</p>
                     <div class="flex items-center">
-                        <img src="person1.png" alt="User Avatar" class="w-12 h-12 rounded-full mr-4">
+                        <img src="person3.png" alt="User Avatar" class="w-12 h-12 rounded-full mr-4">
                         <div>
-                            <p class="font-bold">Geera man</p>
-                            <p class="text-sm text-gray-500">Chef</p>
+                            <p class="font-bold">VIRUS</p>
+                            <p class="text-sm text-gray-500">Professor</p>
                         </div>
                     </div>
                 </div>
@@ -243,15 +428,15 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="py-20 md:py-28">
+    <section id="pricing" class="py-20 md:py-28 fade-in-section">
          <div class="container mx-auto px-6">
             <div class="max-w-3xl mx-auto gradient-bg text-white rounded-3xl p-8 md:p-16 text-center shadow-2xl">
                 <span class="text-sky-300 font-semibold">LIMITED TIME OFFER</span>
                 <h3 class="text-3xl md:text-5xl font-extrabold mt-4 mb-4">Get Your NeuroCalm Today!</h3>
                 <p class="text-lg text-sky-100 mb-8">Early birds get an exclusive <span class="font-bold">15% OFF!</span> Don't miss out on the ultimate relaxation experience.</p>
                 <div class="bg-white text-gray-900 rounded-xl p-6 inline-block mb-8 shadow-inner">
-                    <span class="text-4xl md:text-5xl font-bold">₹3999</span>
-                    <span class="text-gray-500 text-lg">/ one-time</span>
+                    <span class="text-3xl sm:text-4xl md:text-5xl font-bold">₹3999</span>
+                    <span class="text-gray-500 text-base sm:text-lg">/ one-time</span>
                 </div>
                 <button onclick="void(0);" class="w-full max-w-sm secondary-gradient-bg text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl hover:opacity-90 transition-all duration-300 transform hover:scale-105">
                     Buy Now
@@ -265,13 +450,11 @@
     <footer class="bg-gray-100 border-t border-gray-200">
         <div class="container mx-auto px-6 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                 <!-- Your Logo -->
                 <a href="#" class="flex items-center space-x-2">
                     <img src="logo.png" alt="NeuroCalm Logo" class="h-[3.6rem] w-auto">
                 </a>
                 <p class="text-gray-600 text-sm">&copy; 2024 NeuroCalm. All Rights Reserved.</p>
                 <div class="flex space-x-4">
-                    <!-- Replace with your actual social media links -->
                     <a href="#" class="text-gray-500 hover:text-sky-500">
                         <i data-lucide="instagram"></i>
                     </a>
@@ -288,6 +471,90 @@
 
     <script>
         lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = mobileMenuButton.querySelector('i');
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.setAttribute('data-lucide', mobileMenu.classList.contains('hidden') ? 'menu' : 'x');
+            lucide.createIcons();
+        });
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // Loading Screen & Page Transitions
+        const loader = document.getElementById('loader');
+        const sections = document.querySelectorAll('.fade-in-section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loader.classList.add('is-loading');
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    // Initially show first section without observing
+                    const firstSection = document.querySelector('.fade-in-section');
+                    if(firstSection) firstSection.classList.add('is-visible');
+                    sections.forEach(section => observer.observe(section));
+                }, 1000);
+            }, 1000);
+        });
+
+        // New Product Card Logic
+        const colorDots = document.querySelectorAll('.color-options ul li');
+        const productCard = document.querySelector('.product-card');
+        const productImages = document.querySelectorAll('.product-image');
+        const productNames = document.querySelectorAll('.product-name');
+        const priceTags = document.querySelectorAll('.price-tag');
+
+        // Set initial active image visible
+        const initialActiveImage = document.querySelector('.product-image[data-color="black"]');
+        if(initialActiveImage) initialActiveImage.classList.add('active');
+
+        colorDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const color = dot.getAttribute('data-color');
+                
+                // Update active dot
+                colorDots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+
+                // Update card color class
+                productCard.classList.remove('active-black', 'active-blue');
+                productCard.classList.add(`active-${color}`);
+
+                // Hide all names and prices, then show the correct one
+                productNames.forEach(name => name.classList.add('hidden'));
+                const activeName = document.querySelector(`.product-name[data-color="${color}"]`);
+                if(activeName) activeName.classList.remove('hidden');
+
+                priceTags.forEach(price => price.classList.add('hidden'));
+                 const activePrice = document.querySelector(`.price-tag[data-color="${color}"]`);
+                if(activePrice) activePrice.classList.remove('hidden');
+
+                // Update active image
+                productImages.forEach(img => img.classList.remove('active'));
+                const activeImage = document.querySelector(`.product-image[data-color="${color}"]`);
+                if(activeImage) activeImage.classList.add('active');
+            });
+        });
     </script>
 
 </body>
