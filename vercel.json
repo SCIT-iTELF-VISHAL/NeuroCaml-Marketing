@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "https://neuro-caml-marketing.vercel.app/:path*",
+      "destination": "https://neuro-calm-marketing.vercel.app/:path*",
+      "permanent": true
+    }
+  ]
+}
